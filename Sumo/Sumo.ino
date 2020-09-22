@@ -1,30 +1,28 @@
 #include "Sumo.h"
 
-byte Mode = 1;
-
 Robot rb;
 
 bool GoFloor(){
   if(rb.GetFloorBL() == false){
-    rb.SetSpeed(50, 'L');
+    rb.SetSpeed(100, 'L');
     rb.SetSpeed(0, 'R');
     return true;
   }
   
   if(rb.GetFloorBR() == false){
-    rb.SetSpeed(50, 'R');
+    rb.SetSpeed(100, 'R');
     rb.SetSpeed(0, 'L');
     return true;
   }
   
   if(rb.GetFloorFL() == false){
-    rb.SetSpeed(-50, 'L');
+    rb.SetSpeed(-100, 'L');
     rb.SetSpeed(0, 'R');
     return true;
   }
   
   if(rb.GetFloorFR() == false){
-    rb.SetSpeed(-50, 'R');
+    rb.SetSpeed(-100, 'R');
     rb.SetSpeed(0, 'L');
     return true;
   }
@@ -55,14 +53,15 @@ void loop() {
         } else {
           
           if(!GoFloor()){
-            rb.SetSpeed(map(rb.GetEnemyFrontL(), 100, 0, 0, 255), 'R');
-            rb.SetSpeed(map(rb.GetEnemyFrontR(), 100, 0, 0, 255), 'L');
-          } 
+            rb.SetSpeed(map(rb.GetEnemyFrontR(), 100, 1, 0, 255), 'R');
+            rb.SetSpeed(map(rb.GetEnemyFrontR(), 100, 1, 0, 255), 'L');
+          }
           
         }
       } else {
-        if(!GoFloor())
+        if(!GoFloor()){
           rb.SetSpeed(50, 'R');
           rb.SetSpeed(0, 'L');
+        }
       }
 }

@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <NewPing.h>
 
-#define FS_MIN 10
+#define FS_MIN 50
 #define FS_MAX 400
 
 NewPing pinFrontSensorL(7, 7, FS_MAX);
