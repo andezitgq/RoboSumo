@@ -1,10 +1,13 @@
 #include <Arduino.h>
 #include <NewPing.h>
 
-NewPing pinFrontSensorL(A0, A0, 400);
-NewPing pinFrontSensorR(A1, A1, 400);
-NewPing pinSideSensorL(A2, A2, 400);
-NewPing pinSideSensorR(A3, A3, 400);
+#define FS_MIN 10
+#define FS_MAX 400
+
+NewPing pinFrontSensorL(7, 7, FS_MAX);
+NewPing pinFrontSensorR(A1, A1, FS_MAX);
+NewPing pinSideSensorL(A2, A2, FS_MAX);
+NewPing pinSideSensorR(A3, A3, FS_MAX);
 
 class Robot {
   
@@ -17,13 +20,7 @@ private:
        pinMotorLM,
        pinMotorLP,
        pinMotorRM,
-       pinMotorRP,
-       
-       modeButton,
-       modeLed1,
-       modeLed2,
-       modeLed3,
-       powerLed;
+       pinMotorRP;
   
 public:
   byte Mode;
@@ -59,8 +56,10 @@ public:
             analogWrite(pinMotorLM, -_speed);
             analogWrite(pinMotorLP, 0); 
         }
-    } else {
-        if(_speed < 0){
+    }
+    
+    if(_motor == 'R') {
+        if(_speed > 0){
             analogWrite(pinMotorRM, 0);
             analogWrite(pinMotorRP, _speed);
         } else {
@@ -104,11 +103,13 @@ public:
   }
 
   void SensorDump(){
-    Serial.println("Floor_BR: " + String(analogRead(pinFloorSensor_BR)) +
-                " | Floor_BL: " + String(analogRead(pinFloorSensor_BL)) +
-                " | Floor_FR: " + String(analogRead(pinFloorSensor_FR)) +
-                " | Floor_FL: " + String(analogRead(pinFloorSensor_FL)) +
-                " | FrontL: " + String(pinFrontSensorL.ping_cm()) +
+    Serial.print("Floor_BR: " + String(digitalRead(pinFloorSensor_BR)) +
+                " | Floor_BL: " + String(digitalRead(pinFloorSensor_BL)) +
+                " | Floor_FR: " + String(digitalRead(pinFloorSensor_FR)) +
+                " | Floor_FL: " + String(digitalRead(pinFloorSensor_FL)) +
+                " | FrontL: " + String(pinFrontSensorL.ping_cm()));
+    delay(500);
+    Serial.println(
                 " | FrontR: " + String(pinFrontSensorR.ping_cm()) +
                 " | SideL: " + String(pinSideSensorL.ping_cm()) +
                 " | SideR: " + String(pinSideSensorR.ping_cm()));
