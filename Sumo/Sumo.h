@@ -31,10 +31,10 @@ public:
     pinFloorSensor_FR = 5;
     pinFloorSensor_FL = 4;
 
-    pinMotorLM = 9;
-    pinMotorLP = 10;
-    pinMotorRM = 6;
-    pinMotorRP = 11;
+    pinMotorLM = 11;
+    pinMotorLP = 6;
+    pinMotorRM = 10;
+    pinMotorRP = 9;
     
     pinMode(pinFloorSensor_BR, INPUT);
     pinMode(pinFloorSensor_BL, INPUT);
@@ -51,10 +51,10 @@ public:
     if(_motor == 'L'){
         if(_speed > 0){
             analogWrite(pinMotorLM, 0);
-            analogWrite(pinMotorLP, _speed); 
+            analogWrite(pinMotorLP, _speed);
         } else {
             analogWrite(pinMotorLM, -_speed);
-            analogWrite(pinMotorLP, 0); 
+            analogWrite(pinMotorLP, 0);
         }
     }
     
@@ -64,7 +64,7 @@ public:
             analogWrite(pinMotorRP, _speed);
         } else {
             analogWrite(pinMotorRM, -_speed);
-            analogWrite(pinMotorRP, 0); 
+            analogWrite(pinMotorRP, 0);
         }
     }
     
